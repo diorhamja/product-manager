@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const ProductList = (props) => {
 
-    const { products, setProducts } = props;
+    const { products, setProducts, deleteProduct } = props;
+
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/products')
@@ -16,7 +17,7 @@ const ProductList = (props) => {
                 console.log(err);
             })
     }, []);
-    
+
     return (
         <div>
             {
@@ -28,6 +29,8 @@ const ProductList = (props) => {
                                 <p>{product.price}</p>
                                 <p>{product.description}</p>
                             </Link>
+                            <Link to={`/products/edit/${product._id}`}>Edit!</Link>
+                            <button onClick={(e) => {deleteProduct(product._id)}}>Delete</button>
                         </div>
                     )
                 })
